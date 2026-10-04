@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mohamed Samy Badr — My Work</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #09060f;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(100, 45, 150, 0.25), transparent 45%),
+                linear-gradient(135deg, #12091d, #07050b 70%);
+            z-index: -1;
+        }
+
+        /* HEADER */
+        .top {
+            padding: 70px 7% 35px;
+            text-align: center;
+        }
+
+        .small-title {
+            color: #b98cff;
+            font-size: 13px;
+            letter-spacing: 5px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(55px, 8vw, 110px);
+            line-height: 0.9;
+            font-weight: 900;
+            letter-spacing: -5px;
+        }
+
+        .description {
+            margin: 28px auto 0;
+            max-width: 600px;
+            color: #aaa;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 24px;
+            border: 1px solid #555;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: white;
+            color: black;
+            transform: translateY(-3px);
+        }
+
+        /* VIDEO GRID */
+        .work-container {
+            width: 86%;
+            max-width: 1300px;
+            margin: 45px auto 100px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .video-card {
+            background: #111;
+            border: 1px solid #29222f;
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: #8752b8;
+            box-shadow: 0 20px 50px rgba(90, 35, 130, 0.25);
+        }
+
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+            object-fit: cover;
+            border-radius: 7px;
+            background: #050505;
+        }
+
+        .project-info {
+            padding: 18px 10px 12px;
+        }
+
+        .project-number {
+            color: #9b6bc5;
+            font-size: 11px;
+            letter-spacing: 3px;
+            margin-bottom: 7px;
+        }
+
+        .project-name {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .click-text {
+            color: #777;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+        /* FULLSCREEN VIDEO */
+        .video-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.94);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 40px;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .modal-video {
+            width: min(1000px, 90vw);
+            max-height: 85vh;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 38px;
+            cursor: pointer;
+            font-weight: 200;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            .top {
+                padding-top: 45px;
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            .work-container {
+                width: 92%;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="top">
+
+        <div class="small-title">
+            Selected Work
+        </div>
+
+        <h1>
+            THE<br>
+            EDIT.
+        </h1>
+
+        <p class="description">
+            A selection of my video editing and montage work.
+            Click any project to watch it.
+        </p>
+
+        <a href="index.html" class="back-button">
+            ← BACK HOME
+        </a>
+
+    </header>
+
+
+    <!-- VIDEOS -->
+    <main class="work-container">
+
+        <div class="video-grid">
+
+            <!-- VIDEO 01 -->
+            <div class="video-card" onclick="openVideo('assets/project-01.mp4')">
+
+                <video
+                    src="assets/project-01.mp4"
+                    muted
+                    loop
+                    playsinline
+                    onmouseenter="this.play()"
+                    onmouseleave="this.pause()">
+                </video>
+
+                <div class="project-info">
+                    <div class="project-number">PROJECT 01</div>
+                    <div class="project-name">Video Editing</div>
+                    <div class="click-text">Click to watch</div>
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO 02 -->
+            <div class="video-card" onclick="openVideo('assets/project-02.mp4')">
+
+                <video
+                    src="assets/project-02.mp4"
+                    muted
+                    loop
+                    playsinline
+                    onmouseenter="this.play()"
+                    onmouseleave="this.pause()">
+                </video>
+
+                <div class="project-info">
+                    <div class="project-number">PROJECT 02</div>
+                    <div class="project-name">Montage</div>
+                    <div class="click-text">Click to watch</div>
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO 03 -->
+            <div class="video-card" onclick="openVideo('assets/project-03.mp4')">
+
+                <video
+                    src="assets/project-03.mp4"
+                    muted
+                    loop
+                    playsinline
+                    onmouseenter="this.play()"
+                    onmouseleave="this.pause()">
+                </video>
+
+                <div class="project-info">
+                    <div class="project-number">PROJECT 03</div>
+                    <div class="project-name">Creative Edit</div>
+                    <div class="click-text">Click to watch</div>
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO 04 -->
+            <div class="video-card" onclick="openVideo('assets/project-04.mp4')">
+
+                <video
+                    src="assets/project-04.mp4"
+                    muted
+                    loop
+                    playsinline
+                    onmouseenter="this.play()"
+                    onmouseleave="this.pause()">
+                </video>
+
+                <div class="project-info">
+                    <div class="project-number">PROJECT 04</div>
+                    <div class="project-name">Final Cut</div>
+                    <div class="click-text">Click to watch</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- VIDEO POPUP -->
+    <div class="video-modal" id="videoModal">
+
+        <div class="close" onclick="closeVideo()">
+            ×
+        </div>
+
+        <video
+            id="modalVideo"
+            class="modal-video"
+            controls
+            autoplay>
+        </video>
+
+    </div>
+
+
+    <script>
+
+        function openVideo(videoPath) {
+
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("modalVideo");
+
+            video.src = videoPath;
+
+            modal.classList.add("active");
+
+            video.play();
+        }
+
+
+        function closeVideo() {
+
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("modalVideo");
+
+            video.pause();
+            video.src = "";
+
+            modal.classList.remove("active");
+        }
+
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+                closeVideo();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

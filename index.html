@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mohamed Samy Badr</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #05030a;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      height: 100vh;
+      min-height: 650px;
+
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+
+    /* =========================
+       YOUR ORIGINAL PHOTO
+    ========================= */
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+      inset: -10px;
+
+      background-image: url("assets/background.png");
+
+      background-size: cover;
+      background-position: center;
+
+      filter:
+        blur(4px)
+        brightness(0.48)
+        saturate(1.15);
+
+      transform: scale(1.015);
+
+      z-index: -3;
+    }
+
+
+    /* DARK PURPLE OVERLAY */
+
+    .hero::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at 50% 48%,
+          rgba(120, 30, 255, 0.25),
+          transparent 38%
+        ),
+
+        linear-gradient(
+          135deg,
+          rgba(35, 10, 65, 0.35),
+          rgba(5, 2, 12, 0.78)
+        );
+
+      z-index: -2;
+    }
+
+
+    /* =========================
+       PURPLE LIGHT BEHIND NAME
+    ========================= */
+
+    .hero .light {
+      position: absolute;
+
+      width: 700px;
+      height: 280px;
+
+      left: 50%;
+      top: 47%;
+
+      transform: translate(-50%, -50%);
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(150, 50, 255, 0.75),
+          rgba(100, 20, 220, 0.35),
+          transparent 70%
+        );
+
+      filter: blur(45px);
+
+      opacity: 0.75;
+
+      animation: glowPulse 4s ease-in-out infinite;
+
+      z-index: -1;
+
+      pointer-events: none;
+    }
+
+
+    @keyframes glowPulse {
+
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.55;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.12);
+        opacity: 0.95;
+      }
+
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
+
+      position: relative;
+
+      z-index: 5;
+
+      width: 100%;
+      max-width: 1250px;
+
+      padding: 30px;
+
+    }
+
+
+    /* =========================
+       NAME
+    ========================= */
+
+    .name {
+
+      position: relative;
+
+      display: inline-block;
+
+      font-size: clamp(65px, 9vw, 150px);
+
+      line-height: 0.82;
+
+      font-weight: 900;
+
+      letter-spacing: -7px;
+
+      text-transform: uppercase;
+
+      color: white;
+
+      text-shadow:
+
+        0 3px 0 rgba(80, 20, 140, 0.9),
+
+        0 8px 20px rgba(0, 0, 0, 0.8),
+
+        0 0 25px rgba(180, 80, 255, 0.8),
+
+        0 0 65px rgba(130, 30, 255, 0.55);
+
+      animation: nameEntrance 1.2s ease-out forwards;  
+      
+
+      transition: transform 0.2s ease-out;
+
+    }
+
+
+    /* PURPLE EDGE */
+
+    .name::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: 5%;
+
+      right: 5%;
+
+      bottom: -15px;
+
+      height: 35px;
+
+      background:
+
+        radial-gradient(
+          ellipse,
+          rgba(160, 40, 255, 0.8),
+          transparent 70%
+        );
+
+      filter: blur(18px);
+
+      z-index: -1;
+
+      animation: nameGlow 3s ease-in-out infinite;
+
+    }
+
+
+    
+@keyframes nameFloat {
+
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-8px) scale(1.008);
+  }
+
+}
+
+    @keyframes nameEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9);
+    filter: blur(12px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.02);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+@keyframes textEntrance {
+
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+}
+
+
+    @keyframes nameGlow {
+
+      0%, 100% {
+        opacity: 0.5;
+        transform: scaleX(0.9);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleX(1.1);
+      }
+
+    }
+
+
+    /* =========================
+       SUBTITLE
+    ========================= */
+
+    .content h2 {
+     animation: textEntrance 1s ease-out 1.4s forwards, textFloat 3.5s ease-in-out 2.4s infinite;
+
+        opacity: 0;
+
+      margin-top: 45px;
+
+      font-size: clamp(15px, 2vw, 23px);
+
+      letter-spacing: 6px;
+
+      font-weight: 700;
+
+      color: #f4eaff;
+
+      text-transform: uppercase;
+
+      text-shadow:
+        0 0 15px rgba(170, 70, 255, 0.55);
+
+    }
+
+
+    /* =========================
+       TAGLINE
+    ========================= */
+
+    .content p {
+
+      margin-top: 18px;
+
+      font-size: 17px;
+
+      letter-spacing: 1px;
+
+      color: rgba(235, 220, 255, 0.78);
+
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    .button {
+
+      display: inline-block;
+
+      margin-top: 45px;
+
+      padding: 18px 45px;
+
+      border: 1px solid rgba(190, 100, 255, 0.9);
+
+      color: white;
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      letter-spacing: 4px;
+
+      background: rgba(50, 10, 80, 0.15);
+
+      box-shadow:
+
+        0 0 15px rgba(150, 50, 255, 0.35),
+
+        inset 0 0 15px rgba(150, 50, 255, 0.08);
+
+      transition: 0.3s ease;
+
+    }
+
+
+    .button:hover {
+
+      background: rgba(140, 50, 255, 0.25);
+
+      border-color: white;
+
+      box-shadow:
+
+        0 0 25px rgba(170, 70, 255, 0.7),
+
+        0 0 60px rgba(130, 30, 255, 0.35);
+
+      transform: translateY(-4px);
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .name {
+        font-size: clamp(48px, 13vw, 80px);
+        letter-spacing: -4px;
+      }
+
+      .content h2 {
+        font-size: 13px;
+        letter-spacing: 3px;
+      }
+
+      .content p {
+        font-size: 14px;
+      }
+
+      .button {
+        padding: 15px 25px;
+      }
+
+      .hero .light {
+        width: 450px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <section class="hero">
+
+    <div class="light"></div>
+
+    <div class="content">
+
+      <h1 class="name">
+        MOHAMED<br>
+        SAMY BADR
+      </h1>
+
+      <h2>
+        VIDEO EDITOR & MONTAGE ARTIST
+      </h2>
+
+      <p>
+        Turning every frame into a story.
+      </p>
+
+      <a href="work.html" class="button">
+        VIEW MY WORK →
+      </a>
+
+    </div>
+
+  </section>
+<script>
+const name = document.querySelector(".name");
+
+name.addEventListener("mousemove", (e) => {
+  const rect = name.getBoundingClientRect();
+
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  name.style.transform =
+    `perspective(700px)
+     rotateY(${x * 12}deg)
+     rotateX(${-y * 8}deg)
+     translate(${x * 12}px, ${y * 8}px)
+     scale(1.02)`;
+});
+
+name.addEventListener("mouseleave", () => {
+  name.style.transform = "";
+});
+</script>
+</body>
+
+</html>
