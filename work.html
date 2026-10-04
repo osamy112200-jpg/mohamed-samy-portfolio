@@ -207,10 +207,7 @@
             Selected Work
         </div>
 
-        <h1>
-            THE<br>
-            EDIT.
-        </h1>
+        <h1>MY<br>MASTERPIECE.</h1>
 
         <p class="description">
             A selection of my video editing and montage work.
@@ -230,11 +227,10 @@
         <div class="video-grid">
 
             <!-- VIDEO 01 -->
-            <div class="video-card" onclick="openVideo('assets/project-01.mp4')">
+            <div class="video-card" onclick="openVideo('https://player.mediadelivery.net/embed/769643/08cf894e-fb44-44a5-9c1a-07fc300f72b8?autoplay=true&loop=false&muted=true&preload=true&responsive=true')">
 
                 <video
-                    src="assets/project-01.mp4"
-                    muted
+                 src="https://res.cloudinary.com/qiruzoik/video/upload/v1791074089/project-01.mp4"                    muted
                     loop
                     playsinline
                     onmouseenter="this.play()"
@@ -251,7 +247,7 @@
 
 
             <!-- VIDEO 02 -->
-            <div class="video-card" onclick="openVideo('assets/project-02.mp4')">
+            <div class="video-card" onclick="openVideo('https://player.mediadelivery.net/embed/769643/497d35a3-3d51-4266-81ca-2bd311a4e823?autoplay=true&loop=false&muted=true&preload=true&responsive=true')">
 
                 <video
                     src="assets/project-02.mp4"
@@ -267,12 +263,12 @@
                     <div class="project-name">Montage</div>
                     <div class="click-text">Click to watch</div>
                 </div>
-
+`
             </div>
 
 
             <!-- VIDEO 03 -->
-            <div class="video-card" onclick="openVideo('assets/project-03.mp4')">
+            <div class="video-card" onclick="openVideo('https://player.mediadelivery.net/embed/769643/4d8d2966-0150-40ea-a752-31c841a3a212?autoplay=true&loop=false&muted=true&preload=true&responsive=true')">
 
                 <video
                     src="assets/project-03.mp4"
@@ -293,7 +289,7 @@
 
 
             <!-- VIDEO 04 -->
-            <div class="video-card" onclick="openVideo('assets/project-04.mp4')">
+            <div class="video-card" onclick="openVideo('https://player.mediadelivery.net/embed/769643/e12fa543-23a1-44b8-8fed-cdabd25009c7?autoplay=true&loop=false&muted=true&preload=true&responsive=true')">
 
                 <video
                     src="assets/project-04.mp4"
@@ -334,42 +330,53 @@
     </div>
 
 
-    <script>
+<script>
+function openVideo(videoPath) {
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("modalVideo");
 
-        function openVideo(videoPath) {
+    if (videoPath.includes("player.mediadelivery.net")) {
+        const iframe = document.createElement("iframe");
 
-            const modal = document.getElementById("videoModal");
-            const video = document.getElementById("modalVideo");
+        iframe.id = "modalVideo";
+        iframe.src = videoPath;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "0";
+        iframe.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen";
+        iframe.allowFullscreen = true;
 
-            video.src = videoPath;
+        video.replaceWith(iframe);
+    } else {
+        video.src = videoPath;
+        video.play();
+    }
 
-            modal.classList.add("active");
+    modal.classList.add("active");
+}
 
-            video.play();
-        }
+function closeVideo() {
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("modalVideo");
 
+    if (video.tagName === "IFRAME") {
+        video.remove();
+        
+        const newVideo = document.createElement("video");
+        newVideo.id = "modalVideo";
+        newVideo.className = "modal-video";
+        newVideo.controls = true;
+        newVideo.autoplay = true;
 
-        function closeVideo() {
+        document.querySelector(".video-modal").appendChild(newVideo);
+    } else {
+        video.pause();
+        video.src = "";
+    }
 
-            const modal = document.getElementById("videoModal");
-            const video = document.getElementById("modalVideo");
-
-            video.pause();
-            video.src = "";
-
-            modal.classList.remove("active");
-        }
-
-
-        document.addEventListener("keydown", function(event) {
-
-            if (event.key === "Escape") {
-                closeVideo();
-            }
-
-        });
-
-    </script>
+    modal.classList.remove("active");
+}
+</script>
 
 </body>
 </html>
