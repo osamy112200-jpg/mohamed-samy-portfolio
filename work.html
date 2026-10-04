@@ -250,7 +250,7 @@
             <div class="video-card" onclick="openVideo('https://player.mediadelivery.net/embed/769643/497d35a3-3d51-4266-81ca-2bd311a4e823?autoplay=true&loop=false&muted=true&preload=true&responsive=true')">
 
                 <video
-                    src="assets/project-02.mp4"
+                   src="assets/project-02.mp4"
                     muted
                     loop
                     playsinline
@@ -263,7 +263,7 @@
                     <div class="project-name">Montage</div>
                     <div class="click-text">Click to watch</div>
                 </div>
-`
+
             </div>
 
 
@@ -329,8 +329,54 @@
 
     </div>
 
-
 <script>
+const hlsSources = [
+    "https://res.cloudinary.com/qiruzoik/video/upload/v1791074089/project-01.mp4",
+    "https://vz-12de7ae1-65f.b-cdn.net/497d35a3-3d51-4266-81ca-2bd311a4e823/playlist.m3u8",
+    "https://vz-12de7ae1-65f.b-cdn.net/4d8d2966-0150-40ea-a752-31c841a3a212/playlist.m3u8",
+    "https://vz-12de7ae1-65f.b-cdn.net/e12fa543-23a1-44b8-8fed-cdabd25009c7/playlist.m3u8"
+];
+
+function loadHlsLibrary(callback) {
+    if (window.Hls) {
+        callback();
+        return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
+    script.onload = callback;
+    document.head.appendChild(script);
+}
+
+function setupVideoPreviews() {
+    const videos = document.querySelectorAll(".video-card video");
+
+    videos.forEach((video, index) => {
+        const source = hlsSources[index];
+
+        if (source.includes(".m3u8")) {
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(source);
+                hls.attachMedia(video);
+            } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+                video.src = source;
+            }
+        } else {
+            video.src = source;
+        }
+
+        video.addEventListener("mouseenter", () => {
+            video.play().catch(() => {});
+        });
+
+        video.addEventListener("mouseleave", () => {
+            video.pause();
+        });
+    });
+}
+
 function openVideo(videoPath) {
     const modal = document.getElementById("videoModal");
     const video = document.getElementById("modalVideo");
@@ -361,7 +407,7 @@ function closeVideo() {
 
     if (video.tagName === "IFRAME") {
         video.remove();
-        
+
         const newVideo = document.createElement("video");
         newVideo.id = "modalVideo";
         newVideo.className = "modal-video";
@@ -376,6 +422,8 @@ function closeVideo() {
 
     modal.classList.remove("active");
 }
+
+loadHlsLibrary(setupVideoPreviews);
 </script>
 
 </body>
